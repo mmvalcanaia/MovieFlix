@@ -65,10 +65,26 @@ export const getTokenData = (): TokenData | undefined => {
   }
 };
 
-export const isAuthenticated = (): boolean =>{
+export const isAuthenticated = (): boolean => {
   const tokenData = getTokenData();
-  return (tokenData && (tokenData.exp * 1000) > Date.now()) ? true : false;
-}
+  return tokenData && tokenData.exp * 1000 > Date.now() ? true : false;
+};
+
+export const hasAnyRoles = (roles: Role[]): boolean => {
+  if (roles.length === 0) {
+    return true;
+  }
+  const tokenData = getTokenData();
+
+  if (tokenData !== undefined) {
+    for (var i = 0; i < roles.length; i++) {
+      if (tokenData.authorities.includes(roles[i])) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
 
 //Local Storage
 const tokenKey = "authData";
@@ -93,7 +109,7 @@ export const getAuthDataFromLocalStorage = () => {
 
 export const removeAuthDataFromLocalStorage = () => {
   localStorage.removeItem(tokenKey);
-}
+};
 
 // Response interceptor
 axios.interceptors.response.use(

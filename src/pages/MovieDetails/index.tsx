@@ -1,5 +1,6 @@
 import MovieReview from "../../components/MovieReview";
 import ReviewForm from "../../components/ReviewForm";
+import { hasAnyRoles } from "../../util/requests";
 import "./styles.css";
 
 const MovieDetails = () => {
@@ -7,7 +8,7 @@ const MovieDetails = () => {
     <>
       <div className="review-list">
         <h3>Detalhes do filme</h3>
-        <Reviewre-se! No servidor ONE do Discord, você pode encontrar as informações Form />
+        {hasAnyRoles(["ROLE_MEMBER"]) && <ReviewForm />}
         <div className="base-card">
           <MovieReview />
           <MovieReview />
