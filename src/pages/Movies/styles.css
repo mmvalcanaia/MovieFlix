@@ -1,0 +1,45 @@
+.movies-container {
+  margin: 100px 20px;
+}
+
+.movies-container h1 {
+  margin: 20px 0;
+  text-align: center;
+  font-size: 24px;
+}
+.movies-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movies-list a {
+  text-decoration: none;
+  color: #ffff;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 576px) {
+  .movies-container h1 {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .movies-container h1 {
+    font-size: 48px;
+  }
+
+  .movies-container {
+    margin: 100px auto
+  }
+}
+
+
+@media (min-width: 1400px) {
+ 
+    .movies-container {
+      width: 1200px;
+    }
+  }
