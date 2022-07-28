@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import DefaultButton from "../../../components/DefaultButton";
@@ -18,7 +19,8 @@ const Login = () => {
 
   //redirecionar após o login para /movies
   const history = useHistory();
-
+  const [hasError, setHasError] = useState(false);
+  
   const onLoginClick = (formData: FormData) => {
     requestBackendLogin(formData)
       .then((response) => {
@@ -27,9 +29,11 @@ const Login = () => {
         console.log("Token gerado: " + token);
         console.log("login feito", response);
         history.push("/movies");
+        setHasError(false);
       })
       .catch((error) => {
         console.log("Erro no login", error);
+        setHasError(true);
       });
   };
 
@@ -37,6 +41,11 @@ const Login = () => {
     <>
       <div className="base-card login-card">
         <h1>LOGIN</h1>
+        {hasError && (
+          <div className="alert alert-danger">
+            Erro ao tentar efetuar o login.
+          </div>
+        )}
         <form onSubmit={handleSubmit(onLoginClick)}>
           <div className="mb-4">
             <input
