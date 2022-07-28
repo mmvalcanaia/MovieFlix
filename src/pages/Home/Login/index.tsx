@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import DefaultButton from "../../../components/DefaultButton";
 import {
-  getAuthDataFromLocalStorage,
+  isAuthenticated,
   requestBackendLogin,
   saveAuthDataToLocalStorage,
 } from "../../../util/requests";
@@ -29,14 +29,10 @@ const Login = () => {
     requestBackendLogin(formData)
       .then((response) => {
         saveAuthDataToLocalStorage(response.data);
-        const token = getAuthDataFromLocalStorage().access_token;
-        console.log("Token gerado: " + token);
-        console.log("login feito", response);
         history.push("/movies");
         setHasError(false);
       })
       .catch((error) => {
-        console.log("Erro no login", error);
         setHasError(true);
       });
   };

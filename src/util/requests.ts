@@ -1,6 +1,7 @@
 import qs from "qs";
 import axios, { AxiosRequestConfig } from "axios";
 import history from "./history";
+import jwtDecode from "jwt-decode";
 
 export const BASE_URL =
   process.env.REACT_APP_BACKEND_URL ?? "http://localhost:8080";
@@ -46,8 +47,30 @@ export const requestBackend = (config: AxiosRequestConfig) => {
   return axios({ ...config, baseURL: BASE_URL, headers });
 };
 
-//Local Storage
+//decodificar token com JWT
+type Role = "ROLE_VISITOR" | "ROLE_MEMBER";
 
+export type TokenData = {
+  exp: number;
+  user_name: string;
+  authorities: Role[];
+};
+
+export const getTokenData = (): TokenData | undefined => {
+  try {
+    const loginResponse = getAuthDataFromLocalStorage();
+    return jwtDecode(loginResponse.access_token) as TokenData;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export const isAuthenticated = (): boolean =>{
+  const tokenData = getTokenData();
+  return (tokenData && (tokenData.exp * 1000) > Date.now()) ? true : false;
+}
+
+//Local Storage
 const tokenKey = "authData";
 
 type LoginResponse = {
@@ -68,17 +91,22 @@ export const getAuthDataFromLocalStorage = () => {
   return JSON.parse(str) as LoginResponse;
 };
 
+export const removeAuthDataFromLocalStorage = () => {
+  localStorage.removeItem(tokenKey);
+}
 
 // Response interceptor
-axios.interceptors.response.use(function (response) {
-  // Any status code that lie within the range of 2xx cause this function to trigger
-  // Do something with response data
-  return response;
-}, function (error) {
-  //401-unauthorized ou 403-Forbidden
-  if(error.response.status === 401 || error.response.status === 403){
-    history.push("/");
+axios.interceptors.response.use(
+  function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  },
+  function (error) {
+    //401-unauthorized ou 403-Forbidden
+    if (error.response.status === 401 || error.response.status === 403) {
+      history.push("/");
+    }
+    return Promise.reject(error);
   }
-  return Promise.reject(error);
-});
-
+);
