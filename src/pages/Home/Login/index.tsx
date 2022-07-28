@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../../AuthContext";
 import DefaultButton from "../../../components/DefaultButton";
 import {
-  isAuthenticated,
+  getTokenData,
   requestBackendLogin,
   saveAuthDataToLocalStorage,
 } from "../../../util/requests";
@@ -15,6 +16,8 @@ type FormData = {
 };
 
 const Login = () => {
+  const { setAuthContextData } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -29,6 +32,10 @@ const Login = () => {
     requestBackendLogin(formData)
       .then((response) => {
         saveAuthDataToLocalStorage(response.data);
+        setAuthContextData({
+          authenticated: true,
+          tokenData: getTokenData(),
+        });
         history.push("/movies");
         setHasError(false);
       })
