@@ -1,5 +1,6 @@
 import qs from "qs";
 import axios, { AxiosRequestConfig } from "axios";
+import history from "./history";
 
 export const BASE_URL =
   process.env.REACT_APP_BACKEND_URL ?? "http://localhost:8080";
@@ -66,3 +67,18 @@ export const getAuthDataFromLocalStorage = () => {
   const str = localStorage.getItem(tokenKey) ?? "{}";
   return JSON.parse(str) as LoginResponse;
 };
+
+
+// Response interceptor
+axios.interceptors.response.use(function (response) {
+  // Any status code that lie within the range of 2xx cause this function to trigger
+  // Do something with response data
+  return response;
+}, function (error) {
+  //401-unauthorized ou 403-Forbidden
+  if(error.response.status === 401 || error.response.status === 403){
+    history.push("/");
+  }
+  return Promise.reject(error);
+});
+
