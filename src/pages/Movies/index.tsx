@@ -25,7 +25,7 @@ const Movies = () => {
       <div className="row">
         {movies?.content.map((movie: Movie) => (
           <div className="movies-list col-xl-4" key={movie.id}>
-            <Link to="/movies/{movie.id}">
+            <Link to={`/movies/${movie.id}`}>
               <MovieCard movie={movie} />
             </Link>
           </div>

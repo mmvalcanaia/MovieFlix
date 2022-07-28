@@ -1,0 +1,23 @@
+.form-container {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background: #ffc700;
+  border-radius: 4px;
+  font-weight: 700;
+  height: 50px;
+  max-width: 330px;
+}
+
+@media (min-width: 576px) {
+  .form-container {
+    padding: 0 20px;
+  }
+}
