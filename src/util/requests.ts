@@ -2,18 +2,47 @@ import qs from "qs";
 import axios, { AxiosRequestConfig } from "axios";
 import history from "./history";
 import jwtDecode from "jwt-decode";
+import { Review } from "../types/review";
 
 export const BASE_URL =
   process.env.REACT_APP_BACKEND_URL ?? "http://localhost:8080";
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? "myclientid";
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? "myclientsecret";
 
+
+
+//request POST nova review
+
+type ReviewData = {
+  text: string;
+}
+export const requestPostNewReview = (reviewData: ReviewData) => {
+  const headers = {
+    Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
+  };
+  //corpo da requisição com a nova review
+  const logedUser = getAuthDataFromLocalStorage();
+  const data = {
+    ...reviewData,
+    logedUser,
+  };
+
+  return axios({
+    method: "POST",
+    baseURL: BASE_URL,
+    url: "/reviews",
+    data,
+    headers,
+  });
+};
+
+
+//request de login
 type LoginData = {
   username: string;
   password: string;
 };
 
-//request de login
 export const requestBackendLogin = (loginData: LoginData) => {
   //montando o headers que é passado no AxiosRequestConfig quando faz login
   const headers = {
@@ -48,7 +77,7 @@ export const requestBackend = (config: AxiosRequestConfig) => {
 };
 
 //decodificar token com JWT
-type Role = "ROLE_VISITOR" | "ROLE_MEMBER";
+export type Role = "ROLE_VISITOR" | "ROLE_MEMBER";
 
 export type TokenData = {
   exp: number;
