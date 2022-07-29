@@ -1,26 +1,42 @@
+import { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
-import { requestPostNewReview } from "../../util/requests";
+import { Review } from "../../types/review";
+import { requestBackend } from "../../util/requests";
 import "./styles.css";
 
-type ReviewFormData = {
-  text: string
+type Props = {
+  movieId: string;
+  onInsertReview: (review : Review) => void;
 };
 
-type Props = {
-  movieId: string
-}
+type ReviewFormData = {
+  movieId: number;
+  text: string;
+};
 
-const ReviewForm = (movieId : Props) => {
+const ReviewForm = ({ movieId, onInsertReview }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue
   } = useForm<ReviewFormData>();
 
-  const onSubmitClick = (review : ReviewFormData) => {
-    requestPostNewReview(review)
+  const onSubmitClick = (reviewFormData: ReviewFormData) => {
+    
+    reviewFormData.movieId = parseInt(movieId);
+
+    const config: AxiosRequestConfig = {
+      method: "POST",
+      url: "/reviews",
+      data: reviewFormData,
+      withCredentials: true,
+    };
+
+    requestBackend(config)
       .then((response) => {
-        console.log(response);
+        setValue('text', "");
+        onInsertReview(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -29,7 +45,7 @@ const ReviewForm = (movieId : Props) => {
 
   return (
     <div className="base-card form-container">
-       <form onSubmit={handleSubmit(onSubmitClick)}>
+      <form onSubmit={handleSubmit(onSubmitClick)}>
         <input
           {...register("text", {
             required: "Campo obrigatório",
@@ -41,7 +57,7 @@ const ReviewForm = (movieId : Props) => {
         />
         <div className="invalid-feedback d-block">{errors.text?.message}</div>
         <div className="btn-container">
-          <button>SALVAR AVALIAÇÃO</button>
+          <button type="submit">SALVAR AVALIAÇÃO</button>
         </div>
       </form>
     </div>

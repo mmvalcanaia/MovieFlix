@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <nav className="navbar bg-primary">
       <div className="navbar-container">
-        <Link to="/" className="navbar-title">
+        <Link to="/movies" className="navbar-title">
           MovieFlix
         </Link>
         <div>

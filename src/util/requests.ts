@@ -9,34 +9,6 @@ export const BASE_URL =
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? "myclientid";
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? "myclientsecret";
 
-
-
-//request POST nova review
-
-type ReviewData = {
-  text: string;
-}
-export const requestPostNewReview = (reviewData: ReviewData) => {
-  const headers = {
-    Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
-  };
-  //corpo da requisição com a nova review
-  const logedUser = getAuthDataFromLocalStorage();
-  const data = {
-    ...reviewData,
-    logedUser,
-  };
-
-  return axios({
-    method: "POST",
-    baseURL: BASE_URL,
-    url: "/reviews",
-    data,
-    headers,
-  });
-};
-
-
 //request de login
 type LoginData = {
   username: string;

@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-button {
+.btn-container button {
   background: #ffc700;
   border-radius: 4px;
   font-weight: 700;

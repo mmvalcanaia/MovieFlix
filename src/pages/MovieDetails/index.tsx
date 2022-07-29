@@ -13,7 +13,7 @@ type urlParams = {
 
 const MovieDetails = () => {
   const { movieId } = useParams<urlParams>();
-  const [reviews, setReviews] = useState<Review[]>();
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
     const config: AxiosRequestConfig = {
@@ -26,18 +26,24 @@ const MovieDetails = () => {
     });
   }, [movieId]);
 
+  const handleInsertReview = (review: Review) => {
+    const clone = [...reviews];
+    clone.push(review);
+    setReviews(clone);
+  };
+
   return (
-    <>
-      <div className="review-list">
-        <h3>Detalhes do filme</h3>
-        {hasAnyRoles(["ROLE_MEMBER"]) && <ReviewForm movieId={movieId} />}
-        <div className="base-card">
-          {reviews?.map((review) => {
-            return <MovieReview review={review} key={review.id}/>;
-          })}
-        </div>
+    <div className="review-list">
+      <h3>Detalhes do filme</h3>
+      {hasAnyRoles(["ROLE_MEMBER"]) && (
+        <ReviewForm movieId={movieId} onInsertReview={handleInsertReview} />
+      )}
+      <div className="base-card">
+        {reviews?.map((review) => {
+          return <MovieReview review={review} key={review.id} />;
+        })}
       </div>
-    </>
+    </div>
   );
 };
 
