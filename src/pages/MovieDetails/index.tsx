@@ -33,7 +33,7 @@ const MovieDetails = () => {
         {hasAnyRoles(["ROLE_MEMBER"]) && <ReviewForm movieId={movieId} />}
         <div className="base-card">
           {reviews?.map((review) => {
-            return <MovieReview review={review} />;
+            return <MovieReview review={review} key={review.id}/>;
           })}
         </div>
       </div>
