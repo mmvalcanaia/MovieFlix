@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MovieCard from "../../components/MovieCard";
+import Filter from "./Filter";
 import { Movie } from "../../types/movie";
 import { Response } from "../../types/response";
 import { requestBackend } from "../../util/requests";
@@ -21,10 +22,13 @@ const Movies = () => {
 
   return (
     <div className="movies-container">
-      <h1>Tela listagem de filmes</h1>
+      <Filter />
       <div className="row">
         {movies?.content.map((movie: Movie) => (
-          <div className="movies-list col-xl-4" key={movie.id}>
+          <div
+            className="movies-list col-sm-6 col-lg-6 col-xl-3"
+            key={movie.id}
+          >
             <Link to={`/movies/${movie.id}`}>
               <MovieCard movie={movie} />
             </Link>

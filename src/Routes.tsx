@@ -13,7 +13,6 @@ const Routes = () => {
         <Route path="/" exact>
           <Home />
         </Route>
-
         <Route path="/movies" exact>
           <Movies />
         </Route>

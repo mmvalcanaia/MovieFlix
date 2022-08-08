@@ -1,0 +1,38 @@
+.form-filter {
+  background: #6c6c6c;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  height: 60px;
+  width: 280px;
+  margin: 20px auto;
+  padding: 5px 10px;
+}
+
+.form-filter-select {
+  height: 50px;
+  width: 260px;
+  background-color: #6c6c6c;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  color: #e1e1e1;
+}
+
+@media (min-width: 576px) {
+  .form-filter {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
+@media (min-width: 992px) {
+  .form-filter {
+    margin-bottom: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .form-filter {
+    height: 80px;
+  }
+}
+

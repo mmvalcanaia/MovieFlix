@@ -14,8 +14,8 @@ const MovieCard = ({ movie }: Props) => {
         </div>
         <div className="movie-card-info">
           <h6>{movie.title}</h6>
+          <span className="movie-card-info-year">{movie.year}</span>
           <span>{movie.subTitle}</span>
-          <span>{movie.year}</span>
         </div>
       </div>
     </>
