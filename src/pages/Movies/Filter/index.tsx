@@ -1,12 +1,17 @@
 import "./styles.css";
 
+import Select from "react-select";
+
 const Filter = () => {
+  const options = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
+
   return (
     <form className="form-filter">
-      <select className="form-filter-select" name="genres" id="genre">
-        <option value="comedy">Comédia</option>
-        <option value="drama">Drama</option>
-      </select>
+      <Select options={options} classNamePrefix="form-filter-select" />
     </form>
   );
 };
