@@ -7,6 +7,7 @@ import { Response } from "../../types/response";
 import { requestBackend } from "../../util/requests";
 import "./styles.css";
 import { AxiosRequestConfig } from "axios";
+import Pagination from "../../components/Pagination";
 
 type ControlComponentsData = {
   filterData: GenreFilterData;
@@ -57,6 +58,7 @@ const Movies = () => {
           </div>
         ))}
       </div>
+      <Pagination />
     </div>
   );
 };
