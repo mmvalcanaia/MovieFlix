@@ -20,6 +20,10 @@
   color: #ffffff !important;
 }
 
+.form-filter-select__indicator {
+  color: #bebdbd !important;
+}
+
 .form-filter-select__indicator-separator {
   display: none;
 }

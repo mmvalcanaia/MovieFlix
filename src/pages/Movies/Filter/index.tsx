@@ -4,9 +4,16 @@ import Select, { StylesConfig} from "react-select";
 import { useEffect, useState } from "react";
 import { requestBackend } from "../../../util/requests";
 import { Genre } from "../../../types/genre";
-import { colors } from "react-select/dist/declarations/src/theme";
 
-const Filter = () => {
+export type GenreFilterData = {
+  genre: Genre | null;
+}
+
+type Props = {
+  onSubmitFilter: (data : GenreFilterData) => void;
+}
+
+const Filter = ({onSubmitFilter} : Props) => {
   const [selectGenres, setSelectedGenres] = useState<Genre[]>([]);
 
   useEffect(() => {
@@ -14,6 +21,13 @@ const Filter = () => {
       setSelectedGenres(response.data);
     });
   }, []);
+
+  const handleChangeGenre = (value: Genre) =>{
+    const obj : GenreFilterData = {
+      genre: value
+    }
+    onSubmitFilter(obj);
+  }
 
   const customStyles : StylesConfig<Genre> = {
     option: (provided, state) => ({
@@ -31,6 +45,8 @@ const Filter = () => {
         getOptionValue={(genre: Genre) => String(genre.id)}
         classNamePrefix="form-filter-select"
         styles={customStyles}
+        isClearable
+        onChange={(value) => handleChangeGenre(value as Genre)}
       />
     </form>
   );
