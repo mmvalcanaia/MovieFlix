@@ -1,8 +1,11 @@
 import { useState } from "react";
-import "./App.css";
-import "./assets/styles/custom.scss";
+import { ToastContainer } from "react-toastify";
 import { AuthContext, AuthContextData } from "./AuthContext";
 import Routes from "./Routes";
+
+import 'react-toastify/dist/ReactToastify.css';
+import "./App.css";
+import "./assets/styles/custom.scss";
 
 function App() {
   const [authContextData, setAuthContextData] = useState<AuthContextData>({
@@ -11,9 +14,8 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ authContextData, setAuthContextData }}>
-      <div className="App">
         <Routes />
-      </div>
+        <ToastContainer />
     </AuthContext.Provider>
   );
 }

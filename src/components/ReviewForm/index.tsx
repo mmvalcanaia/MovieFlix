@@ -2,6 +2,8 @@ import { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
 import { Review } from "../../types/review";
 import { requestBackend } from "../../util/requests";
+import { toast } from 'react-toastify';
+
 import "./styles.css";
 
 type Props = {
@@ -19,7 +21,7 @@ const ReviewForm = ({ movieId, onInsertReview }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
   } = useForm<ReviewFormData>();
 
   const onSubmitClick = (reviewFormData: ReviewFormData) => {
@@ -37,8 +39,10 @@ const ReviewForm = ({ movieId, onInsertReview }: Props) => {
       .then((response) => {
         setValue('text', "");
         onInsertReview(response.data);
+        toast.success('Avaliação registrada!')
       })
       .catch((error) => {
+        toast.error("Não foi possível salvar a sua avaliação.")
         console.log(error);
       });
   };
@@ -55,7 +59,6 @@ const ReviewForm = ({ movieId, onInsertReview }: Props) => {
           className="input-field"
           placeholder="Deixe sua avaliação aqui"
         />
-        <div className="invalid-feedback d-block">{errors.text?.message}</div>
         <div className="btn-container">
           <button type="submit">SALVAR AVALIAÇÃO</button>
         </div>

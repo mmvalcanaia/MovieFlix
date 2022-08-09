@@ -19,17 +19,21 @@
   margin: 0 5px;
 }
 
-.pagination-active {
-  background-color: #ffc700;
+.pagination-item.active {
+  background: #FFC700;;
+}
+
+.pagination-link-active {
+  background: #FFC700;;
 }
 
 .previous-arrow {
   transform: rotate(-180deg);
-  color: #ffc700;
+  color: #FFC700;;
 }
 
 .next-arrow {
-  color: #ffc700;
+  color: #FFC700;;
 }
 
 .arrow-inactive {
@@ -37,10 +41,20 @@
 }
 
 .arrow-active {
-  color: #ffc700;
+  color: #FFC700;;
 }
 
 .pagination-arrow-container {
   display: flex;
   align-items: center;
 }
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+a:hover{
+  color: unset;
+}
+

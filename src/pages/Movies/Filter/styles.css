@@ -44,5 +44,6 @@
 @media (min-width: 1200px) {
   .form-filter {
     height: 80px;
+    padding: 15px 20px;
   }
 }

@@ -25,7 +25,7 @@ const Movies = () => {
     });
 
   const handleSubmitFilter = (data: GenreFilterData) => {
-    setControlComponentsData({ filterData: data, activePage: 0});
+    setControlComponentsData({ filterData: data, activePage: 0 });
   };
 
   const handlePageChange = (pageNumber: number) => {
