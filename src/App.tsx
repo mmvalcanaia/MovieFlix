@@ -3,8 +3,8 @@ import { ToastContainer } from "react-toastify";
 import { AuthContext, AuthContextData } from "./AuthContext";
 import Routes from "./Routes";
 
-import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
+import 'react-toastify/dist/ReactToastify.css';
 import "./assets/styles/custom.scss";
 
 function App() {

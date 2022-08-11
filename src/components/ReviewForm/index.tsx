@@ -40,7 +40,7 @@ const ReviewForm = ({ movieId, onInsertReview }: Props) => {
         toast.success("Avaliação registrada!");
       })
       .catch(() => {
-        toast.error("Não foi possível salvar a sua avaliação.");
+        toast.error("Não é permitido texto vazio.");
       });
   };
 

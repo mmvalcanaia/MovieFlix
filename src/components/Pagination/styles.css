@@ -13,10 +13,16 @@
   font-weight: bold;
   letter-spacing: -0.015em;
   color: #fff;
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 5px;
+}
+
+.pagination-item:hover {
+  color: unset;
+  text-decoration: none;
 }
 
 .pagination-item.active {

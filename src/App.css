@@ -1,20 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
 
+a, a:hover {
+  text-decoration: none ;
+  color: unset;
+}
+
 body {
-  margin: 0;
+  margin: 70px 0 0 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
   box-sizing: border-box;
   background: #525252;
-}
-
-a {
-  text-decoration: none;
-  color: unset;
-}
-
-a:hover{
-  color: unset;
 }
 
 button {
