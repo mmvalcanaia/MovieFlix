@@ -2,13 +2,13 @@ import { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
 import { Review } from "../../types/review";
 import { requestBackend } from "../../util/requests";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 import "./styles.css";
 
 type Props = {
   movieId: string;
-  onInsertReview: (review : Review) => void;
+  onInsertReview: (review: Review) => void;
 };
 
 type ReviewFormData = {
@@ -20,12 +20,10 @@ const ReviewForm = ({ movieId, onInsertReview }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     setValue,
   } = useForm<ReviewFormData>();
 
   const onSubmitClick = (reviewFormData: ReviewFormData) => {
-    
     reviewFormData.movieId = parseInt(movieId);
 
     const config: AxiosRequestConfig = {
@@ -37,13 +35,12 @@ const ReviewForm = ({ movieId, onInsertReview }: Props) => {
 
     requestBackend(config)
       .then((response) => {
-        setValue('text', "");
+        setValue("text", "");
         onInsertReview(response.data);
-        toast.success('Avaliação registrada!')
+        toast.success("Avaliação registrada!");
       })
-      .catch((error) => {
-        toast.error("Não foi possível salvar a sua avaliação.")
-        console.log(error);
+      .catch(() => {
+        toast.error("Não foi possível salvar a sua avaliação.");
       });
   };
 
@@ -51,9 +48,7 @@ const ReviewForm = ({ movieId, onInsertReview }: Props) => {
     <div className="base-card form-container">
       <form onSubmit={handleSubmit(onSubmitClick)}>
         <input
-          {...register("text", {
-            required: "Campo obrigatório",
-          })}
+          {...(register("text"))}
           type="text"
           name="text"
           className="input-field"
